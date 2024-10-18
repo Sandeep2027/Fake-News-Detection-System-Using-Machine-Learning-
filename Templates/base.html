@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My App{% endblock %}</title>
+    <style>
+    /* Profile circular image styling */
+.profile-circular-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+/* General button styling */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.profile-logo {
+    margin-left: auto;
+}
+</style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('about') }}">About</a>
+
+            {% if session.get('user_name') %}
+                <a href="{{ url_for('prediction') }}">Predict</a>
+                <a href="{{ url_for('logout') }}">Logout</a>
+
+                <div class="profile-logo">
+                    <a href="{{ url_for('profile') }}">
+                        <img src="{{ session.get('profile_image', url_for('static', filename='default_profile.png')) }}" alt="Profile" class="profile-circular-image">
+                    </a>
+                </div>
+            {% else %}
+                <a href="{{ url_for('login') }}">Login</a>
+                <a href="{{ url_for('register') }}">Register</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2024 My App</p>
+    </footer>
+</body>
+</html>

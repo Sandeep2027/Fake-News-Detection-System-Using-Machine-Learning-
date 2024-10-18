@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Welcome to My App!</h1>
+    <p>Predict news, manage your profile, and more.</p>
+
+    {% if session.get('user_name') %}
+        <a href="{{ url_for('prediction') }}" class="btn">Go to Predictions</a>
+    {% else %}
+        <a href="{{ url_for('login') }}" class="btn">Login</a>
+        <a href="{{ url_for('register') }}" class="btn">Register</a>
+    {% endif %}
+</div>
+{% endblock %}
